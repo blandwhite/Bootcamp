@@ -93,7 +93,7 @@ print("Fair Value = $", format(present_value, ",.2f"))
 #    Else, the present value of the loan is less than the loan cost, then print a message that says that the loan is too expensive and not worth the price.
 # YOUR CODE HERE!
 loan_price = loan.get("loan_price")
-if present_value >= loan.get("loan_price"):
+if present_value >= loan_price:
     print(f"Given that the Present Value is ${present_value:.2f}, it is worth buying this loan that is priced at ${loan_price}.")
     print("The loan is worth at least the cost to buy it.")
 else:
@@ -190,11 +190,13 @@ inexpensive_loans = []
 # @TODO: Loop through all the loans and append any that cost $500 or less to the `inexpensive_loans` list
 # YOUR CODE HERE!
 for loan in loans:
-    if loan["loan_price"] <= 500:
+    loan_price = loan.get("loan_price")
+    if loan_price <= 500:
         inexpensive_loans.append(loan)
 # @TODO: Print the `inexpensive_loans` list
 # YOUR CODE HERE!
-print(inexpensive_loans)
+print(f"""Here are the loans that cost $500 or less: 
+{inexpensive_loans}""")
 
 """Part 5: Save the results.
 
@@ -209,7 +211,9 @@ Output this list of inexpensive loans to a csv file
     https://docs.python.org/3/library/csv.html#writer-objects
 
 """
-
+print("""
+Results from Part 5:
+""")
 # Set the output header
 header = ["loan_price", "remaining_months", "repayment_interval", "future_value"]
 
@@ -219,3 +223,9 @@ output_path = Path("inexpensive_loans.csv")
 # @TODO: Use the csv library and `csv.writer` to write the header row
 # and each row of `loan.values()` from the `inexpensive_loans` list.
 # YOUR CODE HERE!
+with open(output_path,"w",newline='') as csvfile:
+    csvwriter = csv.writer(csvfile)
+    csvwriter.writerow(header)
+    for loan in inexpensive_loans:
+        csvwriter.writerow(loan.values())
+print("Your csv file is ready!")
