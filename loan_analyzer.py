@@ -12,6 +12,9 @@ First, let's start with some calculations on a list of prices for 5 loans.
     3. Using the sum of all loans and the total number of loans, calculate the average loan price.
     4. Print all calculations with descriptive messages.
 """
+print("""
+Results from Part 1:
+""")
 loan_costs = [500, 600, 200, 1000, 450]
 
 # How many loans are in the list?
@@ -55,7 +58,9 @@ Using more detailed data on one of these loans, follow these steps to calculate 
     @NOTE:
     If Present Value represents the loan's fair value (given the required minimum return of 20%), does it make sense to buy the loan at its current cost?
 """
-
+print("""
+Results from Part 2:
+""")
 # Given the following loan data, you will need to calculate the present value for the loan
 loan = {
     "loan_price": 500,
@@ -104,7 +109,9 @@ Perform financial calculations using functions.
 2. Use the function to calculate the present value of the new loan given below.
     a. Use an `annual_discount_rate` of 0.2 for this new loan calculation.
 """
-
+print("""
+Results from Part 3:
+""")
 # Given the following loan data, you will need to calculate the present value for the loan
 new_loan = {
     "loan_price": 800,
@@ -117,12 +124,23 @@ new_loan = {
 #    This function should include parameters for `future_value`, `remaining_months`, and the `annual_discount_rate`
 #    The function should return the `present_value` for the loan.
 # YOUR CODE HERE!
+def calculate_present_value(future_value, remaining_months, annual_discount_rate):
+    present_value = future_value / (1+annual_discount_rate/12) **remaining_months
+    return present_value
 
 
 # @TODO: Use the function to calculate the present value of the new loan given below.
 #    Use an `annual_discount_rate` of 0.2 for this new loan calculation.
 # YOUR CODE HERE!
-print(f"The present value of the loan is: {present_value}")
+annual_discount_rate = 0.20
+present_value = calculate_present_value(
+    new_loan["future_value"],
+    new_loan["remaining_months"],
+    annual_discount_rate)
+print(f"The present value of the new loan is: ${present_value:.2f}")
+# testing values to make sure pulling the right data:
+# print(new_loan["loan_price"])
+# print(new_loan["future_value"])
 
 
 """Part 4: Conditionally filter lists of loans.
